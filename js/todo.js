@@ -25,10 +25,37 @@ function getValue(e) {
     }else{
         addTodoUi(newTodo);
         showAlert('success','Uğurla yükləndi');
+        addTodoLocalStorage(newTodo);  
     }
 
     e.preventDefault();
 }
+
+
+function getLocalStorage(){
+    let todos;
+
+    if(localStorage.getItem('todos') === null){
+        todos = [];
+    }
+    else {
+        todos = JSON.parse(localStorage.getItem('todos'));
+    }
+
+    return todos;
+}
+
+
+function addTodoLocalStorage(newTodo){
+    let todos = getLocalStorage();
+
+    console.log(todos)
+
+    todos.push(newTodo);
+
+    localStorage.setItem('todos',JSON.stringify(todos));
+}
+
 
 
 // error ve ya succes divinin create olundugu hisse
@@ -52,8 +79,6 @@ function showAlert(type,message){
     todonotification.setAttribute('role','alert');
 
     todonotification.textContent = message;
-
-    console.log(todonotification);
 
     firstcartbody.appendChild(todonotification);
 
