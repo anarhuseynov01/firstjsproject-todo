@@ -48,7 +48,9 @@ function getLocalStorage(){
 
 function addTodoLocalStorage(newTodo){
     let todos = getLocalStorage();
-    
+
+    todos.push(newTodo);
+
     localStorage.setItem('todos',JSON.stringify(todos));
 }
 
