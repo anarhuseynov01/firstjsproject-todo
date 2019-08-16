@@ -20,11 +20,50 @@ function evenListeners(){  // butun listnerler burda olacaq
 function getValue(e) {
     let newTodo = todofirstinput.value.trim(); // goturulen deyeri trim etmek ucun
 
-
-    addTodoUi(newTodo);
-
+    if(newTodo === ""){
+        showAlert('danger','Zəhmət olmasa bir todo giriniz');
+    }else{
+        addTodoUi(newTodo);
+        showAlert('success','Uğurla yükləndi');
+    }
 
     e.preventDefault();
+}
+
+
+// error ve ya succes divinin create olundugu hisse
+
+function showAlert(type,message){
+
+    /*
+
+
+    <div class="alert alert-danger" role="alert">
+        This is a danger alert—check it out!
+    </div>
+
+
+    */
+
+    const todonotification = document.createElement('div');
+
+    todonotification.className = `alert alert-${type}`;
+
+    todonotification.setAttribute('role','alert');
+
+    todonotification.textContent = message;
+
+    console.log(todonotification);
+
+    firstcartbody.appendChild(todonotification);
+
+
+
+    setTimeout(function(){
+        todonotification.remove()
+    },2000);
+
+
 }
 
 
