@@ -12,8 +12,18 @@ evenListeners();
 
 function evenListeners(){  // butun listnerler burda olacaq
 
-    addtodoform.addEventListener('submit',getValue)
+    addtodoform.addEventListener('submit',getValue);
+    document.addEventListener('DOMContentLoaded',loadAlltodoui);
    
+}
+
+
+function loadAlltodoui(){
+    let todos = getLocalStorage();
+
+    todos.forEach(todo => {
+        addTodoUi(todo);
+    });
 }
 
 
