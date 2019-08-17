@@ -16,6 +16,7 @@ function evenListeners(){  // butun listnerler burda olacaq
     document.addEventListener('DOMContentLoaded',loadAlltodoui);
     secondcardbody.addEventListener('click',deleteTodo);
     filterinput.addEventListener('keyup',search);
+    clearalltodo.addEventListener('click',clearAlltodos)
 }
 
 
@@ -30,6 +31,24 @@ function deleteTodo(e){
 }
 
 
+function clearAlltodos(e){
+    if(confirm('Bütün todolari silmək istədiyinizə əminsinizmi?')){
+
+        while (listgroupul.firstElementChild != null){
+
+            listgroupul.firstElementChild.remove();
+
+        }
+
+
+        localStorage.removeItem('todos');
+
+
+    }
+}
+
+
+
 function search(e){
     
     let value = e.target.value.toLowerCase();   
@@ -37,7 +56,7 @@ function search(e){
     let listitems = document.querySelectorAll('.list-group-item');
 
     listitems.forEach(function(listitem){
-        
+
         const text = listitem.textContent.toLocaleLowerCase();
 
         if (text.indexOf(value) === -1){
@@ -56,9 +75,10 @@ function deletefromlocalstorage(textnode){
     for(let i = 0; i < todos.length;i++){
         if(todos[i] === textnode){
             todos.splice(i,1);
-            localStorage.setItem('todos',JSON.stringify(todos));
         }
     }
+
+    localStorage.setItem('todos', JSON.stringify(todos));
 }
 
 
