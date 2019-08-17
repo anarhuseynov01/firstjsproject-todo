@@ -97,12 +97,32 @@ function getValue(e) {
     if(newTodo === ""){
         showAlert('danger','Zəhmət olmasa bir todo giriniz');
     }else{
-        addTodoUi(newTodo);
-        showAlert('success','Uğurla yükləndi');
-        addTodoLocalStorage(newTodo);  
+
+        const result = comparelocalstorage(newTodo);
+
+        if (result == -1){
+            addTodoUi(newTodo);
+            showAlert('success', 'Uğurla yükləndi');
+            addTodoLocalStorage(newTodo);     
+        }else if(result !=-1) {
+            showAlert('warning', 'Belə bir todo artıq mövcuddur!');
+        }
+        
     }
 
     e.preventDefault();
+    
+}
+
+
+function comparelocalstorage(newTodo){
+    
+    let todos = getLocalStorage();
+
+    let result = todos.indexOf(newTodo);
+
+    return result; 
+    
 }
 
 
