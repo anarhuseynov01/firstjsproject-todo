@@ -15,7 +15,7 @@ function evenListeners(){  // butun listnerler burda olacaq
     addtodoform.addEventListener('submit',getValue);
     document.addEventListener('DOMContentLoaded',loadAlltodoui);
     secondcardbody.addEventListener('click',deleteTodo);
-   
+    filterinput.addEventListener('keyup',search);
 }
 
 
@@ -27,6 +27,27 @@ function deleteTodo(e){
         textnode = e.target.parentElement.parentElement.textContent;
         deletefromlocalstorage(textnode);
     }
+}
+
+
+function search(e){
+    
+    let value = e.target.value.toLowerCase();   
+
+    let listitems = document.querySelectorAll('.list-group-item');
+
+    listitems.forEach(function(listitem){
+        
+        const text = listitem.textContent.toLocaleLowerCase();
+
+        if (text.indexOf(value) === -1){
+            listitem.setAttribute('style','display:none !important');
+        }else {
+            listitem.setAttribute('style','display:block');
+        }
+
+    })
+
 }
 
 function deletefromlocalstorage(textnode){
