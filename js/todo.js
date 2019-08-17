@@ -2,7 +2,7 @@ const addtodoform = document.querySelector('#todo-form');
 const todofirstinput = document.querySelector('#todo');
 const listgroupul = document.querySelector('.list-group');
 const firstcartbody = document.querySelector('.card-body');
-const secondcadrbody = document.querySelectorAll('.card-body')[1];
+const secondcardbody = document.querySelectorAll('.card-body')[1];
 const filterinput = document.querySelector('#filter');
 const clearalltodo = document.querySelector('#clear-todos');
 
@@ -14,7 +14,30 @@ function evenListeners(){  // butun listnerler burda olacaq
 
     addtodoform.addEventListener('submit',getValue);
     document.addEventListener('DOMContentLoaded',loadAlltodoui);
+    secondcardbody.addEventListener('click',deleteTodo);
    
+}
+
+
+function deleteTodo(e){
+    if (e.target.className === "fa fa-remove"){
+        let textnode;
+        e.target.parentElement.parentElement.remove();
+        showAlert('success','Uğurla silindi');
+        textnode = e.target.parentElement.parentElement.textContent;
+        deletefromlocalstorage(textnode);
+    }
+}
+
+function deletefromlocalstorage(textnode){
+    let todos = getLocalStorage();
+
+    for(let i = 0; i < todos.length;i++){
+        if(todos[i] === textnode){
+            todos.splice(i,1);
+            localStorage.setItem('todos',JSON.stringify(todos));
+        }
+    }
 }
 
 
